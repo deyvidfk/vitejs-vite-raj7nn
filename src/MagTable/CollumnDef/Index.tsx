@@ -5,13 +5,11 @@ import {
   MagTableColumnDefProvider,
 } from '../../MagTable/CollumnDef/Provider';
 
-type TMagTableColumnDefProps = {
-  title: string;
-};
+type TMagTableColumnDefProps = {};
 
 const MagTableColumnDef: React.FC<
   React.PropsWithChildren<TMagTableColumnDefProps>
-> = ({ children, title }) => {
+> = ({ children }) => {
   return (
     <>
       {React.Children.map(children, (child, index) => {

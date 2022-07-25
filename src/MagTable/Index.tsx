@@ -1,6 +1,7 @@
 import React from 'react';
 import { MagTableColumnDef } from '../MagTable/CollumnDef/Index';
 import { MagTableColumnDefProvider } from '../MagTable/CollumnDef/Provider';
+import { MagTableCellHeader } from '../MagTable/Header/Index';
 import { MagTableProvider } from '../MagTable/Provider';
 
 type TMagTableProps = {
@@ -20,7 +21,18 @@ const MagTable: React.FC<React.PropsWithChildren<TMagTableProps>> = ({
               React.isValidElement(child) &&
               child.type === MagTableColumnDef
             ) {
-              return <th>{child.props.title}</th>;
+              return (
+                <th>
+                  {React.Children.map(child.props.children, (sc) => {
+                    if (
+                      React.isValidElement(sc) &&
+                      sc.type === MagTableCellHeader
+                    ) {
+                      return React.cloneElement(sc);
+                    }
+                  })}
+                </th>
+              );
             }
           })}
         </tr>

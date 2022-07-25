@@ -4,6 +4,7 @@ import './App.css';
 import MagTable from './MagTable/Index';
 import { MagTableColumnDef } from './MagTable/CollumnDef/Index';
 import { MagTableCell } from './MagTable/Cell/Index';
+import { MagTableCellHeader } from './MagTable/Header/Index';
 
 type TData = {
   name: string;
@@ -21,17 +22,31 @@ function App() {
   return (
     <div className="App">
       <MagTable datasource={source}>
-        <MagTableColumnDef title="Name">
+        <MagTableColumnDef>
+          <MagTableCellHeader sort component="th">
+            <th>
+              Name <button> ^</button>
+            </th>
+          </MagTableCellHeader>
+
           <MagTableCell>
             {(rowData: TData) => <td>{rowData.name}</td>}
           </MagTableCell>
         </MagTableColumnDef>
-        <MagTableColumnDef title="Last Name">
+
+        <MagTableColumnDef>
+          <MagTableCellHeader>
+            <th>Last Name</th>
+          </MagTableCellHeader>
           <MagTableCell>
             {(rowData: TData) => <td>{rowData.lastname}</td>}
           </MagTableCell>
         </MagTableColumnDef>
-        <MagTableColumnDef title="Age">
+
+        <MagTableColumnDef>
+          <MagTableCellHeader>
+            <th>Age</th>
+          </MagTableCellHeader>
           <MagTableCell>
             {(rowData: TData) => <td>{rowData.age}</td>}
           </MagTableCell>
