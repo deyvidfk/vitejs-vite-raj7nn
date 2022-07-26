@@ -22,10 +22,25 @@ function App() {
   return (
     <div className="App">
       <MagTable datasource={source}>
+       
+        <MagTableColumnDef name="sortable">
+          <MagTableCellHeader sort component="th">
+            <input type="checkbox" id="scales" name="scales" checked />
+          </MagTableCellHeader>
+          <MagTableCell>
+            {(rowData: TData) => (
+              <td>
+                <input type="checkbox" id="scales" name="scales" />
+              </td>
+            )}
+          </MagTableCell>
+        </MagTableColumnDef>
+
         <MagTableColumnDef>
           <MagTableCellHeader sort component="th">
             <th>
               Name <button> ^</button>
+              {/* <MagTableSortableCell /> */}
             </th>
           </MagTableCellHeader>
 

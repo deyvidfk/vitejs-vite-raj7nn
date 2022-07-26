@@ -5,7 +5,9 @@ import {
   MagTableColumnDefProvider,
 } from '../../MagTable/CollumnDef/Provider';
 
-type TMagTableColumnDefProps = {};
+type TMagTableColumnDefProps = {
+  name?: string;
+};
 
 const MagTableColumnDef: React.FC<
   React.PropsWithChildren<TMagTableColumnDefProps>

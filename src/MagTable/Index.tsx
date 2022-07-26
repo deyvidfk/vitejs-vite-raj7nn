@@ -6,6 +6,11 @@ import { MagTableProvider } from '../MagTable/Provider';
 
 type TMagTableProps = {
   datasource: Array<unknown>;
+  onSort?: (
+    column: string | undefined,
+    index: number,
+    direction: 'ASC' | 'DESC'
+  ) => void;
 };
 
 const MagTable: React.FC<React.PropsWithChildren<TMagTableProps>> = ({
@@ -15,44 +20,49 @@ const MagTable: React.FC<React.PropsWithChildren<TMagTableProps>> = ({
   return (
     <MagTableProvider value={{ datasource }}>
       <table>
-        <tr>
-          {React.Children.map(children, (child, index) => {
-            if (
-              React.isValidElement(child) &&
-              child.type === MagTableColumnDef
-            ) {
-              return (
-                <th>
-                  {React.Children.map(child.props.children, (sc) => {
-                    if (
-                      React.isValidElement(sc) &&
-                      sc.type === MagTableCellHeader
-                    ) {
-                      return React.cloneElement(sc);
-                    }
-                  })}
-                </th>
-              );
-            }
-          })}
-        </tr>
-
-        {datasource.map((item) => {
-          return (
-            <tr>
-              <MagTableColumnDefProvider value={{ value: item }}>
+        <thead>
+          <tr>
+            {React.Children.map(children, (child, index) => {
+              if (
+                React.isValidElement(child) &&
+                child.type === MagTableColumnDef
+              ) {
+                return (
+                  <th>
+                    {React.Children.map(child.props.children, (sc) => {
+                      if (
+                        React.isValidElement(sc) &&
+                        sc.type === MagTableCellHeader
+                      ) {
+                        return React.cloneElement(sc);
+                      }
+                    })}
+                  </th>
+                );
+              }
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {datasource.map((item) => {
+            return (
+              <tr>
                 {React.Children.map(children, (child, index) => {
                   if (
                     React.isValidElement(child) &&
                     child.type === MagTableColumnDef
                   ) {
-                    return React.cloneElement(child);
+                    return (
+                      <MagTableColumnDefProvider value={{ value: item }}>
+                        {React.cloneElement(child)}
+                      </MagTableColumnDefProvider>
+                    );
                   }
                 })}
-              </MagTableColumnDefProvider>
-            </tr>
-          );
-        })}
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </MagTableProvider>
   );
